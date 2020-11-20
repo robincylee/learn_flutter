@@ -4,7 +4,6 @@ import 'pages/search_screen.dart';
 import 'pages/profile_page.dart';
 import 'pages/activity_history.dart';
 import 'pages/home_page.dart';
-//import test
 
 void main() {
   runApp(new MaterialApp(
