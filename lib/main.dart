@@ -7,6 +7,8 @@ import 'pages/search_screen.dart';
 import 'pages/profile_page.dart';
 import 'pages/activity_history.dart';
 import 'pages/home_page.dart';
+import 'package:flushbar/flushbar.dart';
+import 'package:flushbar/flushbar_helper.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -29,20 +31,11 @@ class WhatsAppUiClone extends StatefulWidget {
 
 class _WhatsAppUiClone extends State<WhatsAppUiClone>
     with SingleTickerProviderStateMixin {
-  Map data = {};
-  var _scaffoldMain = GlobalKey<ScaffoldState>();
   TabController _tabcontroller;
 
   @override
   void initState() {
     super.initState();
-
-    WidgetsBinding.instance.addPostFrameCallback(
-        (_) => _scaffoldMain.currentState.showSnackBar(SnackBar(
-              content: Text(
-                data['record_status'],
-              ),
-            )));
 
     _tabcontroller = TabController(
       initialIndex: 1, //tmp properties
@@ -59,11 +52,10 @@ class _WhatsAppUiClone extends State<WhatsAppUiClone>
 
   @override
   Widget build(BuildContext context) {
-    data = ModalRoute.of(context).settings.arguments;
-    print(data);
+    // data = ModalRoute.of(context).settings.arguments;
+    // print(data);
 
     return Scaffold(
-      key: _scaffoldMain,
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
         title: Text('WhatsApp'),

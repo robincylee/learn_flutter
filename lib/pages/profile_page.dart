@@ -6,7 +6,7 @@ class ProfilePage extends StatelessWidget {
     return new Container(
         child: new Center(
       child: new Text(
-        'Show handsome check in...',
+        'Show handsome profile details...',
         style: new TextStyle(fontSize: 20.0),
       ),
     ));
