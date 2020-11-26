@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:learn_flutter/pages/choose_type.dart';
+import 'package:learn_flutter/pages/continue_page.dart';
+import 'package:learn_flutter/pages/listen_page.dart';
 import './pages/record_page.dart';
 import 'pages/search_screen.dart';
 import 'pages/profile_page.dart';
@@ -6,30 +9,45 @@ import 'pages/activity_history.dart';
 import 'pages/home_page.dart';
 
 void main() {
-  runApp(new MaterialApp(
-    home: new WhatsAppUiClone(),
-    title: 'WhatsApp',
-    theme: new ThemeData(
-      primaryColor: new Color(0xFF04375D),
-      accentColor: new Color(0xFF00935C),
-    ),
-  ));
+  runApp(MaterialApp(
+      // home: WhatsAppUiClone(),
+      title: 'WhatsApp',
+      theme: ThemeData(
+        primaryColor: Color(0xFF04375D),
+        accentColor: Color(0xFF00935C),
+      ),
+      routes: {
+        '/': (context) => WhatsAppUiClone(),
+        '/record': (context) => RecordPage(),
+        '/start': (context) => ChooseType()
+      }));
 }
 
 class WhatsAppUiClone extends StatefulWidget {
-  _WhatsAppUiClone createState() => new _WhatsAppUiClone();
+  _WhatsAppUiClone createState() => _WhatsAppUiClone();
 }
 
 class _WhatsAppUiClone extends State<WhatsAppUiClone>
     with SingleTickerProviderStateMixin {
+  Map data = {};
+  var _scaffoldMain = GlobalKey<ScaffoldState>();
   TabController _tabcontroller;
 
   @override
   void initState() {
     super.initState();
-    _tabcontroller = new TabController(
+
+    WidgetsBinding.instance.addPostFrameCallback(
+        (_) => _scaffoldMain.currentState.showSnackBar(SnackBar(
+              content: Text(
+                data['record_status'],
+              ),
+            )));
+
+    _tabcontroller = TabController(
+      initialIndex: 1, //tmp properties
       vsync: this,
-      length: 5,
+      length: 3,
     );
   }
 
@@ -41,35 +59,39 @@ class _WhatsAppUiClone extends State<WhatsAppUiClone>
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      appBar: new AppBar(
+    data = ModalRoute.of(context).settings.arguments;
+    print(data);
+
+    return Scaffold(
+      key: _scaffoldMain,
+      appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
-        title: new Text('WhatsApp'),
+        title: Text('WhatsApp'),
         elevation: 0.7,
-        bottom: new TabBar(
+        bottom: TabBar(
           controller: _tabcontroller,
           indicatorColor: Colors.white,
           tabs: <Tab>[
-            new Tab(
-              icon: new Icon(Icons.home),
+            Tab(
+              icon: Icon(Icons.home),
             ),
-            new Tab(
-              icon: new Icon(Icons.search),
-            ),
-            new Tab(icon: new Icon(Icons.mic)),
-            new Tab(icon: new Icon(Icons.history)),
-            new Tab(icon: new Icon(Icons.perm_identity)),
+            // Tab(
+            //   icon: Icon(Icons.search),
+            // ),
+            Tab(icon: Icon(Icons.mic)),
+            // Tab(icon: Icon(Icons.history)),
+            Tab(icon: Icon(Icons.perm_identity)),
           ],
         ),
       ),
-      body: new TabBarView(
+      body: TabBarView(
         controller: _tabcontroller,
         children: <Widget>[
-          new HomePage(),
-          new SearchScreen(),
-          new RecordPage(),
-          new ActivityHistory(),
-          new ProfilePage()
+          HomePage(),
+          // SearchScreen(),
+          ChooseType(),
+          // ActivityHistory(),
+          ProfilePage()
         ],
       ),
     );
