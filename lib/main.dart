@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:learn_flutter/pages/choose_type.dart';
-import 'package:learn_flutter/pages/continue_page.dart';
+import 'package:learn_flutter/pages/record_choose.dart';
+import 'package:learn_flutter/pages/record_continue.dart';
 import 'package:learn_flutter/pages/listen_page.dart';
+import 'package:learn_flutter/services/check_permission.dart';
 import './pages/record_page.dart';
 import 'pages/search_screen.dart';
 import 'pages/profile_page.dart';
@@ -13,7 +14,7 @@ import 'package:flushbar/flushbar_helper.dart';
 void main() {
   runApp(MaterialApp(
       // home: WhatsAppUiClone(),
-      title: 'WhatsApp',
+      title: 'My Story App',
       theme: ThemeData(
         primaryColor: Color(0xFF04375D),
         accentColor: Color(0xFF00935C),
@@ -21,7 +22,8 @@ void main() {
       routes: {
         '/': (context) => WhatsAppUiClone(),
         '/record': (context) => RecordPage(),
-        '/start': (context) => ChooseType()
+        '/start': (context) => RecordChoose(),
+        '/record_continue': (context) => RecordContinue()
       }));
 }
 
@@ -36,7 +38,7 @@ class _WhatsAppUiClone extends State<WhatsAppUiClone>
   @override
   void initState() {
     super.initState();
-
+    _getPermission();
     _tabcontroller = TabController(
       initialIndex: 1, //tmp properties
       vsync: this,
@@ -54,11 +56,10 @@ class _WhatsAppUiClone extends State<WhatsAppUiClone>
   Widget build(BuildContext context) {
     // data = ModalRoute.of(context).settings.arguments;
     // print(data);
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
-        title: Text('WhatsApp'),
+        title: Text('My Story App'),
         elevation: 0.7,
         bottom: TabBar(
           controller: _tabcontroller,
@@ -81,11 +82,15 @@ class _WhatsAppUiClone extends State<WhatsAppUiClone>
         children: <Widget>[
           HomePage(),
           // SearchScreen(),
-          ChooseType(),
+          RecordChoose(),
           // ActivityHistory(),
           ProfilePage()
         ],
       ),
     );
+  }
+
+  void _getPermission() async {
+    bool hasPermission = await checkPermission();
   }
 }
