@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:learn_flutter/pages/record_choose.dart';
 import 'package:learn_flutter/pages/record_continue.dart';
 import 'package:learn_flutter/pages/listen_page.dart';
@@ -10,8 +11,14 @@ import 'pages/activity_history.dart';
 import 'pages/home_page.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flushbar/flushbar_helper.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitDown,
+    // DeviceOrientation.portraitUp,
+  ]);
   runApp(MaterialApp(
       // home: WhatsAppUiClone(),
       title: 'My Story App',
@@ -54,6 +61,9 @@ class _WhatsAppUiClone extends State<WhatsAppUiClone>
 
   @override
   Widget build(BuildContext context) {
+    ScreenUtil.init(context,
+        designSize: Size(540, 960), allowFontScaling: false);
+
     // data = ModalRoute.of(context).settings.arguments;
     // print(data);
     return Scaffold(

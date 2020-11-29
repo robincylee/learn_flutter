@@ -1,5 +1,6 @@
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:learn_flutter/models/user_stories.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -55,7 +56,7 @@ class RecordContinue extends StatelessWidget {
                   itemCount: storyTable.length, //tmp data
                   itemBuilder: (BuildContext context, int index) {
                     return Container(
-                      height: 100,
+                      height: 60,
                       child: Card(
                           child: ListTile(
                         leading: IconButton(
@@ -64,19 +65,19 @@ class RecordContinue extends StatelessWidget {
                             print("person button pressed");
                           },
                         ),
-                        contentPadding:
-                            EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                        // contentPadding:
+                        //     EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                         onTap: () {
                           print("Develop navigator pushreplacement $index");
                         },
                         title: Row(
                           children: [
                             Expanded(
-                              child: Text(
-                                storyTable[index],
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
+                              child: Text(storyTable[index],
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                      fontSize: ScreenUtil().setSp(24))),
                             ),
                             // Expanded(
                             //   flex: 3,

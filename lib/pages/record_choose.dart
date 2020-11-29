@@ -2,6 +2,7 @@ import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:learn_flutter/models/user_stories.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 enum categoryType { comedy, tragedy, rebirth, magic, adventure }
 
@@ -79,6 +80,9 @@ class RecordChoose extends StatelessWidget {
                               tmp[index].title, //tmp data title
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  fontSize:
+                                      ScreenUtil().setSp(24)), //responsive
                             ),
                           ),
                           Expanded(
@@ -93,6 +97,9 @@ class RecordChoose extends StatelessWidget {
                                       .year
                                       .toString(), //tmp data date
                               textAlign: TextAlign.right,
+                              style: TextStyle(
+                                  fontSize:
+                                      ScreenUtil().setSp(14)), //responsive
                             ),
                           )
                         ],
@@ -101,6 +108,8 @@ class RecordChoose extends StatelessWidget {
                         tmp[index].desc, //tmp data desc
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            fontSize: ScreenUtil().setSp(16)), //responsive
                       ),
                     )),
                   );
