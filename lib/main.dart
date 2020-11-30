@@ -17,7 +17,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitDown,
-    // DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitUp,
   ]);
   runApp(MaterialApp(
       // home: WhatsAppUiClone(),

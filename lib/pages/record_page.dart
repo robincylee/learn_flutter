@@ -33,15 +33,22 @@ class _RecordPageState extends State<RecordPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Expanded(
-                  child: Text(
-                    "testing",
-                    textAlign: TextAlign.center,
+                  child: RaisedButton(
+                    child: Text("Start"),
+                    onPressed: () {
+                      startRecord();
+                    },
                   ),
                   flex: 2,
                 ),
                 Expanded(
-                  child: Text("inside"),
-                  flex: 1,
+                  child: RaisedButton(
+                    child: Text("Stop"),
+                    onPressed: () {
+                      stopRecord();
+                    },
+                  ),
+                  flex: 2,
                 )
               ],
             ),
@@ -63,6 +70,10 @@ class _RecordPageState extends State<RecordPage> {
                           onPressed: () {
                             // Navigator.pop(context, getRandom());
                             //add mic record function
+                            if (recordFilePath != null &&
+                                File(recordFilePath).existsSync()) {
+                              uploadFile(recordFilePath);
+                            }
                           },
                         ),
                       ),
@@ -87,10 +98,10 @@ class _RecordPageState extends State<RecordPage> {
   }
 
   Future<int> uploadFile(String filePath) async {
-    var postUri = Uri.parse("http://54.255.28.125:4043/uploadfile/");
+    var postUri = Uri.parse("http://54.255.28.125:4042/uploadfile/");
 
     http.MultipartRequest request = new http.MultipartRequest("POST", postUri);
-
+    request.fields['id'] = '1234321';
     http.MultipartFile multipartFile =
         await http.MultipartFile.fromPath('upload_file', filePath);
 
